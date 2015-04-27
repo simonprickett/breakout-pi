@@ -56,11 +56,28 @@ def clearPlayField():
 # Render the initial wall
 #####
 def renderWall():
-	for n in range(8):
-		# TODO make wall depth configurable?
-		for m in range(3):
-			# TODO make coloured bricks
-			UH.set_pixel(n, m, 255, 0, 0)
+	for n in range(3):
+		if (n % 2 == 0):
+			r = 255
+			g = 0
+			b = 0
+		else:
+			r = 0
+			g = 255
+			b = 0
+
+		for m in range(8):
+			if (m % 2 == 0):
+				if (r == 0):
+					r = 255
+					g = 0
+					b = 0
+				else:
+					r = 0
+					g = 255
+					b = 0
+			
+			UH.set_pixel(m, n, r, g, b)
 	UH.show()
 
 #####
