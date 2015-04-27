@@ -53,6 +53,17 @@ def clearPlayField():
 	UH.clear()
 
 #####
+# Render the initial wall
+#####
+def renderWall():
+	for n in range(8):
+		# TODO make wall depth configurable?
+		for m in range(3):
+			# TODO make coloured bricks
+			UH.set_pixel(n, m, 255, 0, 0)
+	UH.show()
+
+#####
 # Render the bat
 #####
 def renderBat():
@@ -168,6 +179,7 @@ def playGame():
 	GPIO.add_event_detect(20, GPIO.FALLING, buttonPressed, bouncetime=50)
 
 	clearPlayField()
+	renderWall()
 
 	while (not gameOver):
 		# TODO game logic
@@ -175,18 +187,15 @@ def playGame():
 		clearBall()
 
 		if (buttonAPressed):
-			print "A"
 			buttonAPressed = False
 			if (ballOnBat == True):
 				# Release the ball
 				ballOnBat = False
 		if (not GPIO.input(20)):
-			print "left"
 			leftPressed = False
 			if (batX > 0):
 				batX -=1
 		if (not GPIO.input(26)):
-			print "right: " + str(batX + batSize)
 			rightPressed = False
 			if (8 > (batX + batSize)):
 				batX += 1 
